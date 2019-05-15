@@ -1,0 +1,32 @@
+﻿@model HsrTech.Domain.Entities.Metadata.ClientMetadata
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Faça o seu login</h2>
+
+
+@using (Html.BeginForm("Index", "Login", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="row">
+        <div class="col-md-12">
+            @Html.LabelFor(m => m.Login)
+        </div>
+        <div class="col-md-12">
+            @Html.TextBoxFor(m => m.Login)
+            @Html.ValidationMessageFor(m => m.Login)
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            @Html.LabelFor(m => m.Password)
+        </div>
+        <div class="col-md-12">
+            @Html.TextBoxFor(m => m.Password)
+            @Html.ValidationMessageFor(m => m.Password)
+        </div>
+    </div>
+    <input type="submit" value="Logar" class="btn btn-default" />
+}

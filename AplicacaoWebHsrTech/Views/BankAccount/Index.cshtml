@@ -1,0 +1,41 @@
+﻿@model List<HsrTech.Domain.Entities.BankAccount>
+@{
+    ViewBag.Title = "Bank Accounts";
+}
+
+<h2>Selecione uma conta</h2>
+
+<a href="@Url.Action("CreateAccount","BankAccount")" class="btn btn-default">Criar conta</a>
+
+<table class="table table-responsive">
+<thead class="thead-dark">
+    <tr>
+        <th>Número da conta</th>
+        <th>Saldo</th>
+        <th>Limite</th>
+        <th></th>
+    </tr>
+</thead>
+<tbody>
+    @foreach (var item in Model)
+    {
+    <tr>
+        <td>
+            @item.NumberAccount
+        </td>
+        <td>
+            R$ @item.Balance
+        </td>
+        <td>
+            R$ @item.Limit
+        </td>
+        <td>
+
+            <a href="@Url.Action("Account","BankAccount", new { numberAccount = item.NumberAccount})" class="btn btn-default">Selecionar</a>
+        </td>
+    </tr>
+    }
+</tbody>
+</table>
+
+

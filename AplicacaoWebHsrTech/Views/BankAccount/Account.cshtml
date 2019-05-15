@@ -1,0 +1,36 @@
+﻿@model HsrTech.Domain.Entities.BankAccount
+@{
+    ViewBag.Title = "Conta";
+}
+
+<h2>Conta - @Model.NumberAccount</h2>
+
+<table class="table table-responsive">
+    <thead class="thead-dark">
+        <tr>
+            <th>Número da conta</th>
+            <th>Saldo</th>
+            <th>Limite</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>        
+        <tr>
+            <td>
+                @Model.NumberAccount
+            </td>
+            <td>
+                R$ @Model.Balance
+            </td>
+            <td>
+                R$ @Model.Limit
+            </td>
+            <td>
+                <a href="@Url.Action("Transfer","BankAccount", new { numberAccount = Model.NumberAccount})" class="btn btn-default">Transferir</a>
+            </td>
+        </tr>        
+    </tbody>
+</table>
+
+
+

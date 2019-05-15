@@ -1,0 +1,14 @@
+C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Context\bin\Debug\HsrTech.Context.dll.config
+C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Context\bin\Debug\HsrTech.Context.dll
+C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Context\bin\Debug\HsrTech.Context.pdb
+C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Context\bin\Debug\EntityFramework.dll
+C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Context\bin\Debug\EntityFramework.SqlServer.dll
+C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Context\bin\Debug\HsrTech.Domain.dll
+C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Context\bin\Debug\HsrTech.Domain.pdb
+C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Context\bin\Debug\EntityFramework.xml
+C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Context\bin\Debug\EntityFramework.SqlServer.xml
+C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Context\obj\Debug\HsrTech.Context.csprojAssemblyReference.cache
+C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Context\obj\Debug\HsrTech.Context.csproj.CoreCompileInputs.cache
+C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Context\obj\Debug\HsrTech.Context.csproj.CopyComplete
+C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Context\obj\Debug\HsrTech.Context.dll
+C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Context\obj\Debug\HsrTech.Context.pdb

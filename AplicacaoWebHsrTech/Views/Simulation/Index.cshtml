@@ -1,0 +1,39 @@
+﻿
+@{
+    ViewBag.Title = "Simulador de conversão";
+}
+
+<h2>Simulador de conversão</h2>
+
+<input type="hidden" id="valorDolar" value="@ViewBag.DolarValue" />
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Valor para</span>
+    </div>
+    <input type="text" id="valor" class="form-control">
+</div>
+<div class="form-check">
+    <input class="form-check-input" type="radio" name="tipoOpcao" id="real" value="0" checked>
+    <label class="form-check-label" for="corrente">
+        Real
+    </label>
+</div>
+<div class="form-check">
+    <input class="form-check-input" type="radio" name="tipoOpcao" id="dolar" value="1">
+    <label class="form-check-label" for="credito">
+        Dolár
+    </label>
+</div>
+
+<button class="btn btn-default" onclick="Converter()">Converter</button>
+<script>  
+    function Converter() {
+        var valor = $('#valor').val();
+        var valorDolar = $('#valorDolar').val();
+        if ($("input[name='tipoOpcao']:checked").val() == 0) {
+            alert((parseFloat(valorDolar.replace(",", ".")) * parseFloat(valor.replace(",", "."))).toFixed(2))
+        } else {
+            alert((parseFloat(valor.replace(",", ".")) / parseFloat(valorDolar.replace(",", "."))).toFixed(2)) 
+        }
+    }
+</script>

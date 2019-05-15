@@ -1,0 +1,64 @@
+﻿@model HsrTech.Domain.Entities.BankAccount
+@{
+    ViewBag.Title = "Transferência";
+}
+
+<h2>Transferência</h2>
+@Html.HiddenFor(m => m.Balance)
+@Html.HiddenFor(m => m.NumberAccount)
+
+
+
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Valor da transferência</span>        
+    </div>
+    <input type="text" id="valor" class="form-control" aria-label="Amount (to the nearest dollar)">
+</div>
+<div class="input-group mb-3">
+    <div class="input-group-prepend">
+        <span class="input-group-text">Número da conta</span>
+    </div>
+    <input type="text" id="nrConta" class="form-control">
+</div>
+<div class="form-check">
+    <input class="form-check-input" type="radio" name="tipoOpcao" id="corrente" value="0" checked>
+    <label class="form-check-label" for="corrente">
+        Conta Corrente
+    </label>
+</div>
+<div class="form-check">
+    <input class="form-check-input" type="radio" name="tipoOpcao" id="credito" value="1">
+    <label class="form-check-label" for="credito">
+        Crédito
+    </label>
+</div>
+
+
+<button onclick="Transferir()">Transferir</button>
+
+<script>
+    function Transferir() {
+        if ($('#NumberAccount').val() == $('#nrConta').val()) {
+            alert("Não é possível transferir para mesma conta!")
+            return false;
+        } else {
+            var valor = $('#valor').val();
+            var nrConta = $('#nrConta').val();
+            var tipoOpcao = $("input[name='tipoOpcao']:checked").val();
+            $.post("@Url.Action("TransferValue","BankAccount")",
+                {
+                    value: valor,
+                    numberAccount: nrConta,
+                    typeTransfer: tipoOpcao,
+                    numberBankAccount : $('#NumberAccount').val()
+                },
+            function (response) {
+                if (response.erro) {
+
+                }
+            });
+
+        }
+    }
+</script>
