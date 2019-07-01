@@ -3,3 +3,9 @@ C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Domain\bin\Debug\HsrTech.Domain.pdb
 C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Domain\obj\Debug\Hsrtech.Domain.csproj.CoreCompileInputs.cache
 C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Domain\obj\Debug\HsrTech.Domain.dll
 C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Domain\obj\Debug\HsrTech.Domain.pdb
+C:\Users\ricardo.vicentini\hsrtechprodutos\TesteHsrtech\HsrTech.Domain\bin\Debug\HsrTech.Domain.dll
+C:\Users\ricardo.vicentini\hsrtechprodutos\TesteHsrtech\HsrTech.Domain\bin\Debug\HsrTech.Domain.pdb
+C:\Users\ricardo.vicentini\hsrtechprodutos\TesteHsrtech\HsrTech.Domain\obj\Debug\Hsrtech.Domain.csprojAssemblyReference.cache
+C:\Users\ricardo.vicentini\hsrtechprodutos\TesteHsrtech\HsrTech.Domain\obj\Debug\Hsrtech.Domain.csproj.CoreCompileInputs.cache
+C:\Users\ricardo.vicentini\hsrtechprodutos\TesteHsrtech\HsrTech.Domain\obj\Debug\HsrTech.Domain.dll
+C:\Users\ricardo.vicentini\hsrtechprodutos\TesteHsrtech\HsrTech.Domain\obj\Debug\HsrTech.Domain.pdb

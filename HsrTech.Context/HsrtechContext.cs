@@ -11,6 +11,7 @@ namespace HsrTech.Context
 {
     public class HsrTechContext : DbContext, IHsrTechContext
     {
+
         public HsrTechContext() : base(nameOrConnectionString: "Base"){}
         public DbSet<Client> Client { get; set; }
         public DbSet<BankAccount> BankAccount { get; set; }
