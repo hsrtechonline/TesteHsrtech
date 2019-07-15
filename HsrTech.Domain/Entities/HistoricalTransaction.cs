@@ -9,6 +9,7 @@ namespace HsrTech.Domain.Entities
     public class HistoricalTransaction
     {
         public int NumberAccount { get; set; }
+        public BankAccount BankAccounty { get; set; }
         public DateTime Date { get; set; }
         public decimal Value { get; set; }
         public bool FlagTransaction{ get; set; }

@@ -12,6 +12,9 @@ namespace HsrTech.Domain.Entities
         public DateTime OpenDate { get; set; }
         public decimal Balance{ get; set; }
         public int ClientId { get; set; }
-        public int Limit { get; set; }
+        public Client Client { get; set; }
+        public int Limit { get; set; } 
+
+        public IList<HistoricalTransaction> HistoricalTransactions { get; set; }
     }
 }
