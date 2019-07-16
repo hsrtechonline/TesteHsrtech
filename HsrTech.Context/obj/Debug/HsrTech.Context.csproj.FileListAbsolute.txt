@@ -37,3 +37,4 @@ C:\Users\flpin\OneDrive\computação\Avaliações\TesteHsrtech\HsrTech.Context\b
 C:\Users\flpin\OneDrive\computação\Avaliações\TesteHsrtech\HsrTech.Context\bin\Debug\MySql.Data.xml
 C:\Users\flpin\OneDrive\computação\Avaliações\TesteHsrtech\HsrTech.Context\bin\Debug\MySql.Data.Entity.EF6.xml
 C:\Users\flpin\OneDrive\computação\Avaliações\TesteHsrtech\HsrTech.Context\bin\Debug\MySql.Data.EntityFramework.xml
+C:\Users\flpin\OneDrive\computação\Avaliações\TesteHsrtech\HsrTech.Context\obj\Debug\HsrTech.Context.Migrations.Base.resources

@@ -4,6 +4,7 @@ using HsrTech.Domain.Interface.Repository;
 using HsrTech.Helper;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace HsrTech.Repository
 
                 var insertAccount = connection.ExecuteQuery
                 ($@"
-                    insert into BankAccount (OpenDate,Balance,ClientId,Limit) values (Getdate(),{balance.ToString().Replace(",", ".")},{clientID},{limit})
+                    insert into Bank_Account (OpenDate,Balance,ClientId,Limit) values (Getdate(),{balance.ToString().Replace(",", ".")},{clientID},{limit})
                 ");
             }
         }
@@ -42,7 +43,7 @@ namespace HsrTech.Repository
                 var data = connection.ExecuteQuery
                 ($@"
                         select	t1.*
-                        from	BankAccount t1                        
+                        from	Bank_Account t1                        
                         where	t1.NumberAccount = {numberAccount}
                     ");
 
@@ -51,7 +52,7 @@ namespace HsrTech.Repository
                 {
                     Balance = Convert.ToDecimal(property.ValueAsDecimal("Balance")),
                     ClientId = int.Parse(property.ValueAsString("ClientId")),
-                    Limit = int.Parse(property.ValueAsString("Balance")),
+                    Limit = int.Parse(property.ValueAsString("Limit")),
                     NumberAccount = int.Parse(property.ValueAsString("NumberAccount")),
                     OpenDate = Convert.ToDateTime(property.ValueAsDateTimeNullable("OpenDate"))
 
@@ -68,7 +69,7 @@ namespace HsrTech.Repository
                 var data = connection.ExecuteQuery
                     ($@"
                         select	t1.*
-                        from	BankAccount t1
+                        from	Bank_Account t1
                         inner	join Client t2
                         on		t1.ClientId = t2.ClientId
                         where	t2.Login = '{login}'
@@ -81,10 +82,9 @@ namespace HsrTech.Repository
                     {
                         Balance = Convert.ToDecimal(property.ValueAsDecimal("Balance")),
                         ClientId = int.Parse(property.ValueAsString("ClientId")),
-                        Limit = int.Parse(property.ValueAsString("Balance")),
+                        Limit = int.Parse(property.ValueAsString("Limit")),
                         NumberAccount = int.Parse(property.ValueAsString("NumberAccount")),
-                        OpenDate = Convert.ToDateTime(property.ValueAsDateTimeNullable("OpenDate"))
-
+                        OpenDate = Convert.ToDateTime(property.ValueAsDateTimeNullable("OpenDate")),
                     };
 
                     listAccounts.Add(account);
@@ -113,7 +113,7 @@ namespace HsrTech.Repository
                     var query2 = connection.ExecuteQuery
                     ($@"
                         select  Balance
-                        from    BankAccount
+                        from    Bank_Account
                         where   NumberAccount = {userNumberAccount}
                     ");
 
@@ -126,12 +126,11 @@ namespace HsrTech.Repository
                     }
                     else
                     {
-                        
                         var update = connection.ExecuteQuery
                         ($@"
                             begin tran
-                                update BankAccount set Balance = {(balanceUser - value).ToString().Replace(",", ".")} where ClientId = {clientID} and NumberAccount = {userNumberAccount}
-                                update BankAccount set Balance = balance  + {(value).ToString().Replace(",", ".")} where ClientId = {clientID} and NumberAccount = {numberAccount}
+                                update Bank_Account set Balance = {(balanceUser - value).ToString().Replace(",", ".")} where ClientId = {clientID} and NumberAccount = {userNumberAccount}
+                                update Bank_Account set Balance = balance  + {(value).ToString().Replace(",", ".")} where ClientId = {clientID} and NumberAccount = {numberAccount}
                                 insert into HistoricalTransaction (NumberAccount,Date,Value,FlagTransaction) values ({userNumberAccount},Getdate(),{value.ToString().Replace(",", ".")},1);
                             commit
                         ");
@@ -143,7 +142,7 @@ namespace HsrTech.Repository
             }
             catch (Exception ex)
             {
-
+                Debug.WriteLine(ex.StackTrace);
                 return false;
             }
         }

@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HsrTech.Context
 {
     public class HsrTechADO
     {
-        string _strConexao;
+        readonly string _strConexao;
         public HsrTechADO(string connectionString)
         {
             _strConexao = connectionString;
@@ -25,11 +22,13 @@ namespace HsrTech.Context
 
                 conn.Open();
 
-                SqlCommand comando = new SqlCommand();
-                comando.Connection = conn;
-                comando.CommandTimeout = 3600;
-                comando.CommandType = System.Data.CommandType.Text;
-                comando.CommandText = query;
+                SqlCommand comando = new SqlCommand
+                {
+                    Connection = conn,
+                    CommandTimeout = 3600,
+                    CommandType = System.Data.CommandType.Text,
+                    CommandText = query
+                };
 
                 using (var reader = comando.ExecuteReader())
                 {

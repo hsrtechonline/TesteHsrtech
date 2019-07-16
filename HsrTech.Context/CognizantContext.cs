@@ -50,7 +50,7 @@ namespace HsrTech.Context
 
             #region tables
             modelBuilder.Entity<Client>().ToTable("Client");
-            modelBuilder.Entity<BankAccount>().ToTable("Bank_Accont");
+            modelBuilder.Entity<BankAccount>().ToTable("Bank_Account");
             modelBuilder.Entity<HistoricalTransaction>().ToTable("Historical");
             #endregion
         }

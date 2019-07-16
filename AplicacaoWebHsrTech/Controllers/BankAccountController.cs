@@ -2,6 +2,7 @@
 using HsrTech.Domain.Entities.Metadata;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -39,7 +40,7 @@ namespace AplicacaoWebHsrTech.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateAccount(BankAccountMetadata model)
+        public ActionResult CreateAccount( BankAccountMetadata model)
         {
             try
             {
@@ -82,7 +83,8 @@ namespace AplicacaoWebHsrTech.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost, ActionName("TransferValue")]
+        [ValidateAntiForgeryToken]
         public ActionResult TransferValue(decimal value, int numberAccount, int typeTransfer, int numberBankAccount )
         {
             try
@@ -104,7 +106,7 @@ namespace AplicacaoWebHsrTech.Controllers
             }
             catch (Exception ex)
             {
-
+                Debug.WriteLine(ex.StackTrace);
                 return View();
             }
         }

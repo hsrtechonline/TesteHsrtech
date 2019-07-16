@@ -19,7 +19,18 @@ namespace HsrTech.Application
 
         public void CreateAccount(decimal balance, int limit, string name)
         {
-            _bankAccountService.CreateAccount(balance, limit,name);
+            _bankAccountService.CreateAccount(balance, limit, name);
+            //_bankAccountService.Add(
+            //    new BankAccount
+            //    {
+            //        Balance =balance,
+            //        Limit =limit,
+            //        Client = new Client
+            //        {
+            //            Name = name
+            //        },
+            //        OpenDate = DateTime.Today
+            //    });
         }
 
         public BankAccount GetAccountByNumberAccount(int numberAccount)

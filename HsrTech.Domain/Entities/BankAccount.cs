@@ -16,5 +16,10 @@ namespace HsrTech.Domain.Entities
         public int Limit { get; set; } 
 
         public IList<HistoricalTransaction> HistoricalTransactions { get; set; }
+
+        public BankAccount()
+        {
+            HistoricalTransactions = new List<HistoricalTransaction>();
+        }
     }
 }

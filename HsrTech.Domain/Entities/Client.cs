@@ -14,5 +14,10 @@ namespace HsrTech.Domain.Entities
         public string Password { get; set; }
 
         public IList<BankAccount> BankAccounts { get; set; }
+
+        public Client()
+        {
+            BankAccounts = new List<BankAccount>();
+        }
     }
 }
