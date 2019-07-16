@@ -11,7 +11,7 @@ namespace HsrTech.Context
 {
     public class HsrTechContext : DbContext, IHsrTechContext
     {
-        public HsrTechContext() : base(nameOrConnectionString: "Base"){}
+        public HsrTechContext() : base(nameOrConnectionString: "Data Source=(LocalDB)\\MSSQLLocalDB; AttachDbFilename=|DataDirectory|\\HsrTechContext.mdf; Integrated Security=True") { }
         public DbSet<Client> Client { get; set; }
         public DbSet<BankAccount> BankAccount { get; set; }
         public DbSet<HistoricalTransaction> HistoricalTransaction { get; set; }
