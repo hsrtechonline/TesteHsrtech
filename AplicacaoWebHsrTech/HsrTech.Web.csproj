@@ -149,6 +149,7 @@
     <Content Include="Views\BankAccount\Transfer.cshtml" />
     <Content Include="Views\Simulation\Index.cshtml" />
     <Content Include="Views\BankAccount\CreateAccount.cshtml" />
+    <Content Include="Views\BankAccount\Dashboard.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

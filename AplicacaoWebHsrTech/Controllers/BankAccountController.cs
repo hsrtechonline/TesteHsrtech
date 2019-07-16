@@ -14,6 +14,19 @@ namespace AplicacaoWebHsrTech.Controllers
     {
         // GET: BankAccount
         private readonly IBankAccountApp _bankAccountApp;
+
+        public ActionResult Dashboard()
+        {
+            try
+            {
+                return View();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+        }
         
         public BankAccountController(IBankAccountApp bankAccountApp)
         {

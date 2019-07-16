@@ -3,3 +3,9 @@ C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Helper\bin\Debug\HsrTech.Helper.pdb
 C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Helper\obj\Debug\HsrTech.Helper.csproj.CoreCompileInputs.cache
 C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Helper\obj\Debug\HsrTech.Helper.dll
 C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Helper\obj\Debug\HsrTech.Helper.pdb
+C:\Users\ramon\Documents\Freela\HSR\HsrTech.Helper\bin\Debug\HsrTech.Helper.dll
+C:\Users\ramon\Documents\Freela\HSR\HsrTech.Helper\bin\Debug\HsrTech.Helper.pdb
+C:\Users\ramon\Documents\Freela\HSR\HsrTech.Helper\obj\Debug\HsrTech.Helper.csprojAssemblyReference.cache
+C:\Users\ramon\Documents\Freela\HSR\HsrTech.Helper\obj\Debug\HsrTech.Helper.csproj.CoreCompileInputs.cache
+C:\Users\ramon\Documents\Freela\HSR\HsrTech.Helper\obj\Debug\HsrTech.Helper.dll
+C:\Users\ramon\Documents\Freela\HSR\HsrTech.Helper\obj\Debug\HsrTech.Helper.pdb
