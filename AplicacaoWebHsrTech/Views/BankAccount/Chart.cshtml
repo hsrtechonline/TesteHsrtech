@@ -1,0 +1,50 @@
+﻿@model List<HsrTech.Domain.Entities.BankAccount>
+@{
+    ViewBag.Title = "Gráfico de Criações de Conta";
+}
+
+<h2>Clique em um filtro</h2>
+
+<a href="#" onclick="buildChart(0)" class="btn btn-default">Dia</a>
+<a href="#" onclick="buildChart(1)" class="btn btn-default">Hora</a>
+<a href="#" onclick="buildChart(2)" class="btn btn-default">Minuto</a>
+
+<div id="container" style="width:100%; height:400px;"></div>
+
+<script src="https://code.highcharts.com/highcharts.js"></script>
+
+<script>
+    function buildChart(filter){
+        $("#container").html("");
+
+        $.post("@Url.Action("GetOpenAccountsBy", "BankAccount")", { filter: filter }, function (response) {
+            var dates = new Array();
+            var qtds = new Array();
+            for (var i in response) {
+                dates.push(response[i].Date);
+                qtds.push(response[i].Qtd);
+            }
+            
+            var myChart = Highcharts.chart('container', {
+                chart: {
+                    type: 'column'
+                },
+                title: {
+                    text: 'Gráfico de Contas Criadas por Período'
+                },
+                xAxis: {
+                    categories: dates
+                },
+                yAxis: {
+                    title: {
+                        text: 'Quantidade de Contas Criadas'
+                    }
+                },
+                series: [{
+                    name: 'Contas Criadas',
+                    data: qtds
+                }]
+            });
+        });
+    }
+</script>

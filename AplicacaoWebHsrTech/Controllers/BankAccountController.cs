@@ -108,5 +108,47 @@ namespace AplicacaoWebHsrTech.Controllers
                 return View();
             }
         }
+
+        public ActionResult Chart()
+        {
+            return View();
+        }
+
+        public enum Filter { Day, Hour, Minute }
+
+        [HttpPost]
+        public JsonResult GetOpenAccountsBy(Filter filter)
+        {
+            var list = _bankAccountApp.ListAccountsByLogin(User.Identity.Name);
+
+            IList<object> data = new List<object>();
+
+            switch (filter)
+            {
+                case Filter.Day:
+                    foreach (var i in list.GroupBy(b => b.OpenDate.Date))
+                    {
+                        data.Add(new { Date = i.First().OpenDate.ToString("yyyy/MM/dd"), Qtd = i.Count() });
+                    }
+                    
+                    return Json(data);
+                case Filter.Hour:
+                    foreach (var i in list.GroupBy(b => b.OpenDate.Date.AddHours(b.OpenDate.Hour)))
+                    {
+                        data.Add(new { Date = i.First().OpenDate.ToString("yyyy/MM/dd HH") + "hr(s)", Qtd = i.Count() });
+                    }
+                    
+                    return Json(data);
+                case Filter.Minute:
+                    foreach (var i in list.GroupBy(b => b.OpenDate.Date.AddHours(b.OpenDate.Hour).AddMinutes(b.OpenDate.Minute)))
+                    {
+                        data.Add(new { Date = i.First().OpenDate.ToString("yyyy/MM/dd HH:mm"), Qtd = i.Count() });
+                    }
+
+                    return Json(data);
+                default:
+                    return null;
+            }
+        }
     }
 }
