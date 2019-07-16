@@ -51,7 +51,7 @@ namespace HsrTech.Repository
                 {
                     Balance = Convert.ToDecimal(property.ValueAsDecimal("Balance")),
                     ClientId = int.Parse(property.ValueAsString("ClientId")),
-                    Limit = int.Parse(property.ValueAsString("Balance")),
+                    Limit = int.Parse(property.ValueAsString("Limit")),
                     NumberAccount = int.Parse(property.ValueAsString("NumberAccount")),
                     OpenDate = Convert.ToDateTime(property.ValueAsDateTimeNullable("OpenDate"))
 
@@ -81,7 +81,7 @@ namespace HsrTech.Repository
                     {
                         Balance = Convert.ToDecimal(property.ValueAsDecimal("Balance")),
                         ClientId = int.Parse(property.ValueAsString("ClientId")),
-                        Limit = int.Parse(property.ValueAsString("Balance")),
+                        Limit = int.Parse(property.ValueAsString("Limit")),
                         NumberAccount = int.Parse(property.ValueAsString("NumberAccount")),
                         OpenDate = Convert.ToDateTime(property.ValueAsDateTimeNullable("OpenDate"))
 
