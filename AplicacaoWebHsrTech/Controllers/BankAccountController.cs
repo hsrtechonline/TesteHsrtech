@@ -11,6 +11,7 @@ using System.Web.Mvc;
 namespace AplicacaoWebHsrTech.Controllers
 {
     [Authorize]
+    [Route("BankAccount")]
     public class BankAccountController : Controller
     {
         // GET: BankAccount
@@ -83,6 +84,7 @@ namespace AplicacaoWebHsrTech.Controllers
             }
         }
 
+        [Route("BankAccount/TransferValue")]
         [HttpPost, ActionName("TransferValue")]
         [ValidateAntiForgeryToken]
         public ActionResult TransferValue(decimal value, int numberAccount, int typeTransfer, int numberBankAccount )

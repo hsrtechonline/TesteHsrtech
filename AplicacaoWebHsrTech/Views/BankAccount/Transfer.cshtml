@@ -4,8 +4,6 @@
 }
 
 <h2>Transferência</h2>
-@using (Html.BeginForm("TransferValue", "BankAccount", FormMethod.Post))
-{
 @Html.AntiForgeryToken()
 @Html.HiddenFor(m => m.Balance)
 @Html.HiddenFor(m => m.NumberAccount)
@@ -14,13 +12,13 @@
     <div class="input-group-prepend">
         <span class="input-group-text">Valor da transferência</span>
     </div>
-    <input type="number" id="valor" class="form-control" aria-label="Amount (to the nearest dollar)">
+    <input type="number" id="valor" class="form-control" aria-label="Amount (to the nearest dollar)" autofocus step="0.01">
 </div>
 <div class="input-group mb-3">
     <div class="input-group-prepend">
         <span class="input-group-text">Número da conta</span>
     </div>
-    <input type="number" id="nrConta" class="form-control">
+    <input type="number" id="nrConta" class="form-control" min="1">
 </div>
 <div class="form-check">
     <input class="form-check-input" type="radio" name="tipoOpcao" id="corrente" value="0" checked>
@@ -35,9 +33,8 @@
     </label>
 </div>
 
+<button onclick="Transferir()">Transferir</button>
 
-<button onclick="return Transferir()">Transferir</button>
-}
 
 <script type="text/javascript">
     function Transferir() {
@@ -49,26 +46,29 @@
             var nrConta = $('#nrConta').val();
             var tipoOpcao = $("input[name='tipoOpcao']:checked").val();
             var numberAccount = $('#NumberAccount').val();
-            console.log(valor);
-            console.log(nrConta);
-            console.log(tipoOpcao);
-            console.log(numberAccount);
+
             //decimal value, int numberAccount, int typeTransfer, int numberBankAccount
-            $.post("@Url.Action("TransferValue", "BankAccount")",
-                {
+            $.post("@Url.Action("TransferValue", "BankAccount", null, "http")",
+                JSON.stringify({
                     value: valor,
                     numberAccount: numberAccount,
                     typeTransfer: tipoOpcao,
                     numberBankAccount: nrConta
-                },
-            function (response) {
-                if (response.erro) {
-                    alert("Impossivel de realizar a operação");
+
+                }),
+                function (response) {
+                    erro: if (response.erro) {
+                    alert("ERRO! Impossivel realizar a operação");
                     return false;
                 }
-                return true;
-            });
-
+                    success: if (response.success) {
+                    alert("SUCESSO! Operação realizada com sucesso");
+                    return true;
+                }
+                return false;
+                }
+                , "JSON");
+            return true;
         }
     }
 </script>
