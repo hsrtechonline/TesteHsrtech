@@ -48,8 +48,8 @@
     <Compile Include="Entities\Client.cs" />
     <Compile Include="Entities\Metadata\BankAccountMetadata.cs" />
     <Compile Include="Entities\Metadata\ClientMetadata.cs" />
+    <Compile Include="Entities\Partial\AccountCreation.cs" />
     <Compile Include="Entities\Partial\Simulation.cs" />
-    <Compile Include="Entities\ViewModel\DashBoardFilterVM.cs" />
     <Compile Include="Interface\Repository\IBankAccountRepository.cs" />
     <Compile Include="Interface\Repository\ILoginRepository.cs" />
     <Compile Include="Interface\Repository\IRepositoryBase.cs" />

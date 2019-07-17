@@ -1,8 +1,84 @@
-﻿
+﻿@using System.Web.UI.WebControls
+@model HsrTech.Domain.Entities.ViewModel.DashBoardFilterVM
 @{
     ViewBag.Title = "Dashboard";
+    ViewBag.Type = new SelectList(new object[]
+    {
+        new {Name = "By Day", Value = "1"},
+        new {Name = "By Hour", Value = "2"},
+    new {Name = "By Minute", Value = "2"}
+    }, "Value", "Name", selectedValue: (int?)Model?.Type??1);
 }
 
 <h2>Dashboard</h2>
 
+<div class="container">
+    <form method="get">
+        <div class="row">
+            <div class="col-md-2">
+                Start Date
+                @Html.TextBoxFor(model => model.StartDate, new { type = "date" })
+            </div>
+            <div class="col-md-2">
+                End Date
+                @Html.TextBoxFor(model => model.EndDate,  new { type = "date" })
+            </div>
+            <div class="col-md-1">
+                Type
+                @Html.DropDownList("Type")
+                
+            </div>
+            <div class="col-md-1" style="margin-top: 8px;">
+                <button type="submit" class="btn btn-primary" style="vertical-align: middle"><span class="glyphicon glyphicon-filter"></span>Filter</button>
+            </div>
+
+        </div>
+
+    </form>
+
+    <div id="chart"></div>
+</div>
 <script src="https://code.highcharts.com/highcharts.js"></script>
+<script>
+    let AccountsData = @Html.Raw(Json.Encode(ViewBag.AccountsData));
+    let chartCategories = AccountsData.map(a => a.Time);
+    let chartData = AccountsData.map(a => a.Quantity);
+
+    Highcharts.chart('chart', {
+        chart: {
+            type: 'column'
+        },
+        title: {
+            text: 'Accounts Created per Time Unit'
+        },
+        xAxis: {
+            categories: chartCategories,
+            crosshair: true
+        },
+        yAxis: {
+            min: 0,
+            title: {
+                text: 'Number of accounts'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                '<td style="padding:0"><b>{point.y}</b></td></tr>',
+            footerFormat: '</table>',
+            shared: true,
+            useHTML: true
+        },
+        plotOptions: {
+            column: {
+                pointPadding: 0.2,
+                borderWidth: 0
+            }
+        },
+        series: [{
+            name: 'Accounts Created',
+            data: chartData
+
+        }]
+    });
+</script>

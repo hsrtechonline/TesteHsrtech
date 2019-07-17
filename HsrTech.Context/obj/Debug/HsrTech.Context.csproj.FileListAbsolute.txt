@@ -26,5 +26,3 @@ C:\Users\ramon\Documents\Freela\HSR\HsrTech.Context\obj\Debug\HsrTech.Context.cs
 C:\Users\ramon\Documents\Freela\HSR\HsrTech.Context\obj\Debug\HsrTech.Context.csproj.CopyComplete
 C:\Users\ramon\Documents\Freela\HSR\HsrTech.Context\obj\Debug\HsrTech.Context.dll
 C:\Users\ramon\Documents\Freela\HSR\HsrTech.Context\obj\Debug\HsrTech.Context.pdb
-C:\Users\ramon\Documents\Freela\HSR\HsrTech.Context\obj\Debug\HsrTech.Context.Migrations.initial.resources
-C:\Users\ramon\Documents\Freela\HSR\HsrTech.Context\obj\Debug\HsrTech.Context.csproj.GenerateResource.cache

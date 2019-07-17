@@ -51,11 +51,6 @@
   <ItemGroup>
     <Compile Include="CognizantContext.cs" />
     <Compile Include="Interface\ICognizantContext.cs" />
-    <Compile Include="Migrations\201907160115582_initial.cs" />
-    <Compile Include="Migrations\201907160115582_initial.Designer.cs">
-      <DependentUpon>201907160115582_initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,11 +63,6 @@
       <Project>{F4A81DEC-AE64-41E3-988F-CFE308CB92BF}</Project>
       <Name>Hsrtech.Domain</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907160115582_initial.resx">
-      <DependentUpon>201907160115582_initial.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HsrTech.Domain.Entities.Partial;
 
 namespace HsrTech.Domain.Service
 {
@@ -35,6 +36,11 @@ namespace HsrTech.Domain.Service
         public bool Transfer(decimal value, int numberAccount, int typeTransfer, string login, int userNumberAccount)
         {
             return _bankAccountRepository.Transfer(value, numberAccount, typeTransfer, login, userNumberAccount);
+        }
+
+        public IList<AccountCreation> GetAccountsCreated(DateTime? startDate, DateTime? endDate, int type)
+        {
+            return _bankAccountRepository.GetAccountsCreated(startDate, endDate, type);
         }
     }
 }

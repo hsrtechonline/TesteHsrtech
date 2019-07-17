@@ -6,6 +6,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using HsrTech.Domain.Entities.Partial;
+using HsrTech.Domain.Entities.ViewModel;
 
 namespace AplicacaoWebHsrTech.Controllers
 {
@@ -15,10 +17,12 @@ namespace AplicacaoWebHsrTech.Controllers
         // GET: BankAccount
         private readonly IBankAccountApp _bankAccountApp;
 
-        public ActionResult Dashboard()
+        public ActionResult Dashboard(DashBoardFilterVM filter)
         {
             try
             {
+                var accountsCreated = _bankAccountApp.GetAccountsCreated(filter.StartDate, filter.EndDate, (int) filter.Type);
+                ViewBag.AccountsData = accountsCreated;
                 return View();
             }
             catch (Exception e)

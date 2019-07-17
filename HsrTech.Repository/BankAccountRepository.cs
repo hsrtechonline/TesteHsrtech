@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HsrTech.Domain.Entities.Partial;
 
 namespace HsrTech.Repository
 {
@@ -51,7 +52,7 @@ namespace HsrTech.Repository
                 {
                     Balance = Convert.ToDecimal(property.ValueAsDecimal("Balance")),
                     ClientId = int.Parse(property.ValueAsString("ClientId")),
-                    Limit = int.Parse(property.ValueAsString("Balance")),
+                    Limit = int.Parse(property.ValueAsString("Limit")),
                     NumberAccount = int.Parse(property.ValueAsString("NumberAccount")),
                     OpenDate = Convert.ToDateTime(property.ValueAsDateTimeNullable("OpenDate"))
 
@@ -145,6 +146,72 @@ namespace HsrTech.Repository
             {
 
                 return false;
+            }
+        }
+
+        public IList<AccountCreation> GetAccountsCreated(DateTime? startDate, DateTime? endDate, int type)
+        {
+            using (var context = new HsrTechContext())
+            {
+                HsrTechADO connection = new HsrTechADO(context.Database.Connection.ConnectionString);
+
+                var additionalFilter = String.Empty;
+                var additionalSelectHour = "+ '-' + STR(datepart(HOUR,t1.OpenDate)) +'h'";
+                var additionalSelectMinute = "+ ':' +STR(datepart(MINUTE,t1.OpenDate)) + 'm'";
+
+                var additionalGroupBy = String.Empty;
+                var additionalGroupByHour = ", STR(datepart(HOUR,t1.OpenDate))";
+                var additionalGroupByMinute = ", STR(datepart(MINUTE,t1.OpenDate))";
+
+                if (type == 2)
+                {
+                    additionalFilter += additionalSelectHour;
+                    additionalGroupBy += additionalGroupByHour;
+                }else if (type == 3)
+                {
+                    additionalFilter += additionalSelectHour + additionalSelectMinute;
+                    additionalGroupBy += additionalGroupByHour + additionalGroupByMinute;
+                }
+
+                var dateConditional = String.Empty;
+                if (startDate.HasValue)
+                {
+                    dateConditional += $" where t1.OpenDate >= '{startDate.Value.ToString("yyyy-MM-dd")}'";
+                }
+
+                if (endDate.HasValue)
+                {
+                    dateConditional += dateConditional.Length > 0 ? " and" : " where ";
+                    dateConditional += $" t1.OpenDate <= '{endDate.Value.ToString("yyyy-MM-dd")}'";
+                }
+
+                var query = $@"
+                        select	COUNT(*) AS QUANTITY,
+                                REPLACE(
+                                    STR(datepart(YEAR,t1.OpenDate)) + '-' +
+                                    STR(datepart(MONTH,t1.OpenDate)) + '-' +
+                                    STR(datepart(DAY,t1.OpenDate)) 
+                                    {additionalFilter} , ' ', '')
+                                as TIMESTAMP
+                        from	BankAccount t1
+                        {dateConditional}
+                        group by    datepart(YEAR,t1.OpenDate), 
+                                    datepart(MONTH,t1.OpenDate),
+                                    datepart(DAY,t1.OpenDate)
+                                    {additionalGroupBy}
+                    ";
+                var data = connection.ExecuteQuery(query);
+                var listAccounts = new List<AccountCreation>();
+                foreach (var item in data)
+                {
+                    var property = item as Dictionary<string, object>;
+                    var acc = new AccountCreation(){
+                        Quantity = Convert.ToInt32(property.ValueAsString("QUANTITY")),
+                        Time = property.ValueAsString("TIMESTAMP")
+                    };
+                    listAccounts.Add(acc);
+                }
+                return listAccounts;
             }
         }
     }
