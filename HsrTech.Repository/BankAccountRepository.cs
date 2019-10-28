@@ -24,22 +24,29 @@ namespace HsrTech.Repository
                     COUNT(*) AS 'Count',
                     DATEPART(YEAR, OpenDate) AS 'Year',
                     DATEPART(MONTH, OpenDate) AS 'Month',
-                    DATEPART(DAY, OpenDate) AS 'Day',
-                    DATEPART(HOUR, OpenDate) AS 'Hour',
-                    DATEPART(MINUTE, OpenDate) AS 'Minute',
-                    DATEPART(SECOND, OpenDate) AS 'Second'
+                    DATEPART(DAY, OpenDate) AS 'Day'
                 ";
 
                 var groupby = $@"
-                    DATEPART(Second, OpenDate),
-                    DATEPART(Minute, OpenDate),
-                    DATEPART(Hour, OpenDate),
                     DATEPART(DAY, OpenDate),
                     DATEPART(MONTH, OpenDate),
                     DATEPART(YEAR, OpenDate)
                 ";
 
-                var orderby = $@" 'Year', 'Month', 'Day', 'Hour', 'Minute', 'Second' ";
+                var orderby = $@"'Year', 'Month', 'Day'";
+
+                if (options.GroupMode == StatisticsOptionsGroupModes.HOURS)
+                {
+                    select += ", DATEPART(HOUR, OpenDate) AS 'Hour'";
+                    groupby = "DATEPART(HOUR, OpenDate), " + groupby;
+                    orderby += ", 'Hour'";
+                }
+                else if (options.GroupMode == StatisticsOptionsGroupModes.MINUTES)
+                {
+                    select += ", DATEPART(HOUR, OpenDate) AS 'Hour', DATEPART(MINUTE, OpenDate) AS 'Minute'";
+                    groupby = "DATEPART(HOUR, OpenDate), DATEPART(MINUTE, OpenDate), " + groupby;
+                    orderby += ", 'Hour', 'Minute'";
+                }
 
                 var data = connection.ExecuteQuery
                 ($@" SELECT {select} FROM BankAccount WHERE ClientId = {clientId} GROUP BY {groupby} ORDER BY {orderby}");
@@ -52,9 +59,8 @@ namespace HsrTech.Repository
                         int.Parse(property.ValueAsString("Year")),
                         int.Parse(property.ValueAsString("Month")),
                         int.Parse(property.ValueAsString("Day")),
-                        int.Parse(property.ValueAsString("Hour")),
-                        int.Parse(property.ValueAsString("Minute")),
-                        int.Parse(property.ValueAsString("Second")),
+                        (int)options.GroupMode > 0 ? int.Parse(property.ValueAsString("Hour")) : 0,
+                        (int)options.GroupMode > 1 ? int.Parse(property.ValueAsString("Minute")) : 0,
                         int.Parse(property.ValueAsString("Count"))
                     );
 
@@ -78,23 +84,13 @@ namespace HsrTech.Repository
         }
 
 
-
-
-
         public void CreateAccount(decimal balance, int limit, string login)
         {
             using (var context = new HsrTechContext())
             {
                 HsrTechADO connection = new HsrTechADO(context.Database.Connection.ConnectionString);
-                var data = connection.ExecuteQuery
-                ($@"
-                    select  ClientId 
-                    from    Client
-                    where   Login = '{login}'
-                ");
 
-                var property = data[0] as Dictionary<string, object>;
-                int clientID = int.Parse(property.ValueAsString("ClientId"));
+                int clientID = getClientIdByLogin(login, connection);
 
                 var insertAccount = connection.ExecuteQuery
                 ($@"
@@ -169,15 +165,8 @@ namespace HsrTech.Repository
                 using (var context = new HsrTechContext())
                 {                    
                     HsrTechADO connection = new HsrTechADO(context.Database.Connection.ConnectionString);
-                    var query = connection.ExecuteQuery
-                    ($@"
-                        select  ClientId 
-                        from    Client
-                        where   Login = '{login}'
-                    ");
 
-                    var property = query[0] as Dictionary<string, object>;
-                    int clientID = int.Parse(property.ValueAsString("ClientId"));
+                    int clientID = getClientIdByLogin(login, connection);
 
                     var query2 = connection.ExecuteQuery
                     ($@"

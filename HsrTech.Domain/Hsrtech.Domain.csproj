@@ -49,7 +49,9 @@
     <Compile Include="Entities\Metadata\BankAccountMetadata.cs" />
     <Compile Include="Entities\Metadata\ClientMetadata.cs" />
     <Compile Include="Entities\Partial\Simulation.cs" />
+    <Compile Include="Entities\Partial\Statistics.cs" />
     <Compile Include="Entities\Partial\StatisticsItem.cs" />
+    <Compile Include="Entities\Partial\StatisticsOptionsGroupModes.cs" />
     <Compile Include="Entities\Partial\StatisticsOptions.cs" />
     <Compile Include="Interface\Repository\IBankAccountRepository.cs" />
     <Compile Include="Interface\Repository\ILoginRepository.cs" />

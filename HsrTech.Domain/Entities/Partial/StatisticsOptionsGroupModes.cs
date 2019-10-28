@@ -8,9 +8,13 @@ using System.Threading.Tasks;
 
 namespace HsrTech.Domain.Entities.Partial
 {
-    public class StatisticsOptions
+    public enum StatisticsOptionsGroupModes
     {
-        [DisplayName("Agrupar por:")]
-        public StatisticsOptionsGroupModes GroupMode { get; set; } = StatisticsOptionsGroupModes.DAYS;
+        [Display(Name = "Dias")]
+        DAYS,
+        [Display(Name = "Horas")]
+        HOURS,
+        [Display(Name = "Minutos")]
+        MINUTES
     }
 }

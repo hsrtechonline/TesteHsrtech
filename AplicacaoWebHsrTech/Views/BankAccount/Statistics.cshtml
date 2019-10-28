@@ -2,9 +2,111 @@
 @{
     ViewBag.Title = "Estatísticas";
 }
-<div>
-    var chart = @Html.Raw(Json.Encode(ViewBag.DataChart));
+<script src="https://code.highcharts.com/highcharts.js"></script>
 
-    alert(chart);
+<style>
+    #container {
+        height: 300px;
+        min-width: 310px;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+</style>
 
-</div>
+<form method="POST" id="submit_form">
+    <div class="form-group">
+        @Html.LabelFor(m => m.GroupMode)
+        @Html.EnumDropDownListFor(model => model.GroupMode, new { @id = "mode_input", @class = "form-control" })
+    </div>
+</form>
+
+<div id="container"></div>
+
+<script>
+
+    $("#mode_input").change(function () {
+        $("#submit_form").submit();
+    })
+
+    var chartData = @Html.Raw(Json.Encode(ViewBag.DataChart));
+    var categories = [];
+    var values = [];
+
+    if (chartData.Options.GroupMode > 0) {
+
+        $.each(chartData.Items, function (index, value) {
+            category = value.Day + '/' + value.Month + '/' + value.Year + ' ' + value.Hour + ':' + value.Minute;
+            categories.push(category);
+            values.push(value.Count);
+        });
+    }
+    else {
+        $.each(chartData.Items, function (index, value) {
+            category = value.Day + '/' + value.Month + '/' + value.Year;
+            categories.push(category);
+            values.push(value.Count);
+        });
+    }
+
+
+    var chart = Highcharts.chart('container', {
+
+        chart: {
+            type: 'column'
+        },
+
+        xAxis: {
+            categories: categories,
+            labels: {
+                x: -10
+            }
+        },
+
+        yAxis: {
+            allowDecimals: false,
+            title: {
+                text: 'Amount'
+            }
+        },
+
+        series: [{
+            name: 'Estatísticas de contas criadas',
+            data: values
+        }],
+
+        responsive: {
+            rules: [{
+                condition: {
+                    maxWidth: 500
+                },
+                chartOptions: {
+                    legend: {
+                        align: 'center',
+                        verticalAlign: 'bottom',
+                        layout: 'horizontal'
+                    },
+                    yAxis: {
+                        labels: {
+                            align: 'left',
+                            x: 0,
+                            y: -5
+                        },
+                        title: {
+                            text: null
+                        }
+                    },
+                    subtitle: {
+                        text: null
+                    },
+                    credits: {
+                        enabled: false
+                    }
+                }
+            }]
+        }
+    });
+
+    chart.setSize(null);
+
+
+</script>
