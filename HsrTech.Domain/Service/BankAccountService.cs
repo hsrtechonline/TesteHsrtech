@@ -1,4 +1,5 @@
 ﻿using HsrTech.Domain.Entities;
+using HsrTech.Domain.Entities.Partial;
 using HsrTech.Domain.Interface.Repository;
 using HsrTech.Domain.Interface.Service;
 using System;
@@ -12,6 +13,12 @@ namespace HsrTech.Domain.Service
     public class BankAccountService : ServiceBase<BankAccount>, IBankAccountService
     {
         private readonly IBankAccountRepository _bankAccountRepository;
+
+        public Statistics GetStatisticsByLogin(string login, StatisticsOptions options)
+        {
+            return _bankAccountRepository.GetStatisticsByLogin(login, options);
+        }
+
         public BankAccountService(IBankAccountRepository bankAccountRepository) : base(bankAccountRepository)
         {
             _bankAccountRepository = bankAccountRepository;

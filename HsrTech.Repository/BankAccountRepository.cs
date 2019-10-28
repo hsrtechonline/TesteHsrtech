@@ -1,5 +1,6 @@
 ﻿using HsrTech.Context;
 using HsrTech.Domain.Entities;
+using HsrTech.Domain.Entities.Partial;
 using HsrTech.Domain.Interface.Repository;
 using HsrTech.Helper;
 using System;
@@ -12,6 +13,74 @@ namespace HsrTech.Repository
 {
     public class BankAccountRepository : RepositoryBase<BankAccount>, IBankAccountRepository
     {
+        public Statistics GetStatisticsByLogin(string login, StatisticsOptions options)
+        {
+            using (var context = new HsrTechContext())
+            {
+                HsrTechADO connection = new HsrTechADO(context.Database.Connection.ConnectionString);
+                var clientId = getClientIdByLogin(login, connection);
+
+                var select = $@"
+                    COUNT(*) AS 'Count',
+                    DATEPART(YEAR, OpenDate) AS 'Year',
+                    DATEPART(MONTH, OpenDate) AS 'Month',
+                    DATEPART(DAY, OpenDate) AS 'Day',
+                    DATEPART(HOUR, OpenDate) AS 'Hour',
+                    DATEPART(MINUTE, OpenDate) AS 'Minute',
+                    DATEPART(SECOND, OpenDate) AS 'Second'
+                ";
+
+                var groupby = $@"
+                    DATEPART(Second, OpenDate),
+                    DATEPART(Minute, OpenDate),
+                    DATEPART(Hour, OpenDate),
+                    DATEPART(DAY, OpenDate),
+                    DATEPART(MONTH, OpenDate),
+                    DATEPART(YEAR, OpenDate)
+                ";
+
+                var orderby = $@" 'Year', 'Month', 'Day', 'Hour', 'Minute', 'Second' ";
+
+                var data = connection.ExecuteQuery
+                ($@" SELECT {select} FROM BankAccount WHERE ClientId = {clientId} GROUP BY {groupby} ORDER BY {orderby}");
+
+                List<StatisticsItem> listItems = new List<StatisticsItem>();
+                foreach (var item in data)
+                {
+                    var property = item as Dictionary<string, object>;
+                    StatisticsItem statistic = new StatisticsItem(
+                        int.Parse(property.ValueAsString("Year")),
+                        int.Parse(property.ValueAsString("Month")),
+                        int.Parse(property.ValueAsString("Day")),
+                        int.Parse(property.ValueAsString("Hour")),
+                        int.Parse(property.ValueAsString("Minute")),
+                        int.Parse(property.ValueAsString("Second")),
+                        int.Parse(property.ValueAsString("Count"))
+                    );
+
+                    listItems.Add(statistic);
+                }
+                return new Statistics(options, listItems);
+            }
+        }
+
+        private int getClientIdByLogin(string login, HsrTechADO connection)
+        {
+            var data = connection.ExecuteQuery
+            ($@"
+                select  ClientId 
+                from    Client
+                where   Login = '{login}'
+            ");
+
+            var property = data[0] as Dictionary<string, object>;
+            return int.Parse(property.ValueAsString("ClientId"));
+        }
+
+
+
+
+
         public void CreateAccount(decimal balance, int limit, string login)
         {
             using (var context = new HsrTechContext())

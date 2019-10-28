@@ -21,13 +21,14 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                 
-                    <li><a class="nav-item nav-link active" href="@Url.Action("Index","Simulation")">Simular conversão</a></li>                    
+
+                    <li><a class="nav-item nav-link active" href="@Url.Action("Index","Simulation")">Simular conversão</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <li><a class="nav-item nav-link disabled" href="@Url.Action("Statistics","BankAccount")">Estatísticas</a></li>
                         <li><a class="nav-item nav-link disabled" href="@Url.Action("SignOut","Login")">Sair</a></li>
                     }
-                       
+
                 </ul>
             </div>
         </div>

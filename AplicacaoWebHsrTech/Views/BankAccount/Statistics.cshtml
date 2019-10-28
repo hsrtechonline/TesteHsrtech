@@ -1,0 +1,10 @@
+﻿@model HsrTech.Domain.Entities.Partial.StatisticsOptions
+@{
+    ViewBag.Title = "Estatísticas";
+}
+<div>
+    var chart = @Html.Raw(Json.Encode(ViewBag.DataChart));
+
+    alert(chart);
+
+</div>

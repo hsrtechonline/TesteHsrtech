@@ -1,5 +1,6 @@
 ﻿using HsrTech.Application.Interface;
 using HsrTech.Domain.Entities;
+using HsrTech.Domain.Entities.Partial;
 using HsrTech.Domain.Interface.Service;
 using System;
 using System.Collections.Generic;
@@ -15,6 +16,11 @@ namespace HsrTech.Application
         public BankAccountApp(IBankAccountService bankAccount) : base(bankAccount)
         {
             _bankAccountService = bankAccount;
+        }
+
+        public Statistics GetStatisticsByLogin(string login, StatisticsOptions options)
+        {
+            return _bankAccountService.GetStatisticsByLogin(login, options);
         }
 
         public void CreateAccount(decimal balance, int limit, string name)

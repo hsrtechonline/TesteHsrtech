@@ -1,5 +1,6 @@
 ﻿using HsrTech.Application.Interface;
 using HsrTech.Domain.Entities.Metadata;
+using HsrTech.Domain.Entities.Partial;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,22 @@ namespace AplicacaoWebHsrTech.Controllers
     {
         // GET: BankAccount
         private readonly IBankAccountApp _bankAccountApp;
+
+        public ActionResult Statistics(StatisticsOptions options)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    ViewBag.DataChart = _bankAccountApp.GetStatisticsByLogin(User.Identity.Name, options);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View();
+        }
         
         public BankAccountController(IBankAccountApp bankAccountApp)
         {
