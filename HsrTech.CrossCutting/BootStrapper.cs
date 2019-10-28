@@ -1,10 +1,10 @@
-﻿using SimpleInjector;
-using HsrTech.Domain.Interface.Repository;
-using HsrTech.Repository;
-using HsrTech.Domain.Interface.Service;
+﻿using HsrTech.Application;
 using HsrTech.Application.Interface;
-using HsrTech.Application;
+using HsrTech.Domain.Interface.Repository;
+using HsrTech.Domain.Interface.Service;
 using HsrTech.Domain.Service;
+using HsrTech.Repository;
+using SimpleInjector;
 
 namespace HsrTech.CrossCutting
 {

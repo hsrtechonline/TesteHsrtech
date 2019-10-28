@@ -7,3 +7,12 @@ C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Application\obj\Debug\Hsrtech.Application
 C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Application\obj\Debug\Hsrtech.Application.csproj.CopyComplete
 C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Application\obj\Debug\HsrTech.Application.dll
 C:\HSRTECH\ApresentacaoHsrtech\HsrTech.Application\obj\Debug\HsrTech.Application.pdb
+C:\Users\Rayane\source\repos\TesteHsrtech\HsrTech.Application\bin\Debug\HsrTech.Application.dll
+C:\Users\Rayane\source\repos\TesteHsrtech\HsrTech.Application\bin\Debug\HsrTech.Application.pdb
+C:\Users\Rayane\source\repos\TesteHsrtech\HsrTech.Application\bin\Debug\HsrTech.Domain.dll
+C:\Users\Rayane\source\repos\TesteHsrtech\HsrTech.Application\bin\Debug\HsrTech.Domain.pdb
+C:\Users\Rayane\source\repos\TesteHsrtech\HsrTech.Application\obj\Debug\Hsrtech.Application.csprojAssemblyReference.cache
+C:\Users\Rayane\source\repos\TesteHsrtech\HsrTech.Application\obj\Debug\Hsrtech.Application.csproj.CoreCompileInputs.cache
+C:\Users\Rayane\source\repos\TesteHsrtech\HsrTech.Application\obj\Debug\Hsrtech.Application.csproj.CopyComplete
+C:\Users\Rayane\source\repos\TesteHsrtech\HsrTech.Application\obj\Debug\HsrTech.Application.dll
+C:\Users\Rayane\source\repos\TesteHsrtech\HsrTech.Application\obj\Debug\HsrTech.Application.pdb

@@ -2,11 +2,7 @@
 using HsrTech.Domain.Entities.Partial;
 using HsrTech.Domain.Interface.Repository;
 using HsrTech.Domain.Interface.Service;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HsrTech.Domain.Service
 {

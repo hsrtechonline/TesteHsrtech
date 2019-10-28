@@ -1,11 +1,6 @@
 ﻿using HsrTech.Application.Interface;
 using HsrTech.Domain.Entities;
 using HsrTech.Domain.Interface.Service;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HsrTech.Application
 {
