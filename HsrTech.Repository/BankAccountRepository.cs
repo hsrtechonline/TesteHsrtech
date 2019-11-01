@@ -130,9 +130,9 @@ namespace HsrTech.Repository
                         var update = connection.ExecuteQuery
                         ($@"
                             begin tran
-                                update BankAccount set Balance = {(balanceUser - value).ToString().Replace(",", ".")} where ClientId = {clientID} and NumberAccount = {userNumberAccount}
-                                update BankAccount set Balance = balance  + {(value).ToString().Replace(",", ".")} where ClientId = {clientID} and NumberAccount = {numberAccount}
-                                insert into HistoricalTransaction (NumberAccount,Date,Value,FlagTransaction) values ({userNumberAccount},Getdate(),{value.ToString().Replace(",", ".")},1);
+                                update BankAccount set Balance = {(balanceUser - value).ToString().Replace(",", ".")} where ClientId = {clientID} and NumberAccount = {userNumberAccount} ;
+                                update BankAccount set Balance = {(balanceUser + value).ToString().Replace(",", ".")} where ClientId = {numberAccount} and NumberAccount = {numberAccount}
+                                insert into HistoricalTransaction (NumberAccount,Date,Value,FlagTransaction) values ({userNumberAccount},{DateTime.Now.ToString("dd/MM/,yyyy HH:mm")},'{value.ToString().Replace(",", ".")}',{typeTransfer});
                             commit
                         ");
                         
