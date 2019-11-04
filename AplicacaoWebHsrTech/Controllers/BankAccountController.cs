@@ -95,11 +95,14 @@ namespace AplicacaoWebHsrTech.Controllers
                 bool sucess = _bankAccountApp.Transfer(value, numberAccount, typeTransfer, User.Identity.Name, numberBankAccount);
                 if (sucess)
                 {
-                    return RedirectToAction("Index","BankAccount");
+                    return RedirectToAction("Account", "BankAccount");
+                    
                 }
                 else
                 {
+                    ViewBag.Status = "Erro ao transferir, o valor requerido excede o saldo";
                     return View();
+
                 }                
             }
             catch (Exception ex)

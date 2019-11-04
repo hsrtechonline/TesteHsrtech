@@ -12,6 +12,7 @@ namespace HsrTech.Repository
 {
     public class BankAccountRepository : RepositoryBase<BankAccount>, IBankAccountRepository
     {
+        
         public void CreateAccount(decimal balance, int limit, string login)
         {
             using (var context = new HsrTechContext())
@@ -29,7 +30,7 @@ namespace HsrTech.Repository
 
                 var insertAccount = connection.ExecuteQuery
                 ($@"
-                    insert into BankAccount (OpenDate,Balance,ClientId,Limit) values (Getdate(),{balance.ToString().Replace(",", ".")},{clientID},{limit})
+                    insert into BankAccount (OpenDate,Balance,ClientId,Limit) values ('{DateTime.Now.ToString("dd/MM/yyyy HH:mm")}',{balance.ToString().Replace(",", ".")},{clientID},{limit})
                 ");
             }
         }
@@ -51,7 +52,7 @@ namespace HsrTech.Repository
                 {
                     Balance = Convert.ToDecimal(property.ValueAsDecimal("Balance")),
                     ClientId = int.Parse(property.ValueAsString("ClientId")),
-                    Limit = int.Parse(property.ValueAsString("Balance")),
+                    Limit = int.Parse(property.ValueAsString("Limit")),
                     NumberAccount = int.Parse(property.ValueAsString("NumberAccount")),
                     OpenDate = Convert.ToDateTime(property.ValueAsDateTimeNullable("OpenDate"))
 
@@ -81,7 +82,7 @@ namespace HsrTech.Repository
                     {
                         Balance = Convert.ToDecimal(property.ValueAsDecimal("Balance")),
                         ClientId = int.Parse(property.ValueAsString("ClientId")),
-                        Limit = int.Parse(property.ValueAsString("Balance")),
+                        Limit = int.Parse(property.ValueAsString("Limit")),
                         NumberAccount = int.Parse(property.ValueAsString("NumberAccount")),
                         OpenDate = Convert.ToDateTime(property.ValueAsDateTimeNullable("OpenDate"))
 
@@ -95,47 +96,87 @@ namespace HsrTech.Repository
 
         public bool Transfer(decimal value, int numberAccount, int typeTransfer, string login, int userNumberAccount)
         {
+            
             try
             {
                 using (var context = new HsrTechContext())
-                {                    
+                {
+                    decimal valorDisponivel;
+
                     HsrTechADO connection = new HsrTechADO(context.Database.Connection.ConnectionString);
                     var query = connection.ExecuteQuery
-                    ($@"
-                        select  ClientId 
-                        from    Client
-                        where   Login = '{login}'
-                    ");
-
+                            ($@"
+                                select  ClientId 
+                                from    Client
+                                where   Login = '{login}'
+                            ");
                     var property = query[0] as Dictionary<string, object>;
                     int clientID = int.Parse(property.ValueAsString("ClientId"));
 
+
+                    //CONTA REMETENTE
                     var query2 = connection.ExecuteQuery
-                    ($@"
-                        select  Balance
-                        from    BankAccount
-                        where   NumberAccount = {userNumberAccount}
-                    ");
+                                    ($@"
+                                select  Balance, Limit 
+                                from    BankAccount
+                                where   NumberAccount = {userNumberAccount}
+                                ");
 
                     var property2 = query2[0] as Dictionary<string, object>;
                     decimal balanceUser = property2.ValueAsDecimal("Balance");
+                    decimal limiteUser = property2.ValueAsDecimal("Limit");
 
-                    if ((balanceUser - value) <= 0)
+                    //CONTA DESTINO
+                    var queryAccountTarget = connection.ExecuteQuery
+                                    ($@"
+                                select  Balance, Limit 
+                                from    BankAccount
+                                where   NumberAccount = {numberAccount}
+                                ");
+
+                    var property3 = queryAccountTarget[0] as Dictionary<string, object>;
+                    decimal balanceUsertarget = property3.ValueAsDecimal("Balance");
+                    decimal limiteUsertarget = property3.ValueAsDecimal("Limit");
+
+                    if (typeTransfer == 0)
+                        valorDisponivel = balanceUser;
+                    else
+                        valorDisponivel = limiteUser;
+                    
+
+                    if ((valorDisponivel - value) < 0)
                     {
                         return false;
                     }
                     else
                     {
+                        //se for Conta corrente,  altera o Balance
+                        if(typeTransfer == 0)
+                        {
+                            var update = connection.ExecuteQuery
+                            ($@"
+                                begin tran
+                                    update BankAccount set Balance = {(balanceUser - value).ToString().Replace(",", ".")} where ClientId = {clientID} and NumberAccount = {userNumberAccount} ;
+                                    update BankAccount set Balance = {(balanceUsertarget + value).ToString().Replace(",", ".")} where ClientId = {numberAccount} and NumberAccount = {numberAccount}
+                                    insert into HistoricalTransaction (NumberAccount,NumberAccountTarget,Date,Value,FlagTransaction) values ({userNumberAccount},{numberAccount},'{DateTime.Now.ToString("dd/MM/yyyy HH:mm")}','{value.ToString().Replace(",", ".")}',{typeTransfer});
+                                commit
+                            ");
+                        }
+                        //Caso for credito, altera o limite
+                        else
+                        {
+                            var update = connection.ExecuteQuery
+                            ($@"
+                                begin tran
+                                    update BankAccount set Limit = {(limiteUser - value).ToString().Replace(",", ".")} where ClientId = {clientID} and NumberAccount = {userNumberAccount} ;
+                                    update BankAccount set Limit = {(limiteUsertarget + value).ToString().Replace(",", ".")} where ClientId = {numberAccount} and NumberAccount = {numberAccount}
+                                    insert into HistoricalTransaction (NumberAccount,NumberAccountTarget,Date,Value,FlagTransaction) values ({userNumberAccount},{numberAccount},'{DateTime.Now.ToString("dd/MM/yyyy HH:mm")}','{value.ToString().Replace(",", ".")}',{typeTransfer});
+                                commit
+                            ");
+                        }
                         
-                        var update = connection.ExecuteQuery
-                        ($@"
-                            begin tran
-                                update BankAccount set Balance = {(balanceUser - value).ToString().Replace(",", ".")} where ClientId = {clientID} and NumberAccount = {userNumberAccount}
-                                update BankAccount set Balance = balance  + {(value).ToString().Replace(",", ".")} where ClientId = {clientID} and NumberAccount = {numberAccount}
-                                insert into HistoricalTransaction (NumberAccount,Date,Value,FlagTransaction) values ({userNumberAccount},Getdate(),{value.ToString().Replace(",", ".")},1);
-                            commit
-                        ");
                         
+                            
                     }
                 }
                 return true;

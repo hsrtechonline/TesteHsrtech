@@ -9,3 +9,9 @@ C:\Users\ricardo.vicentini\hsrtechprodutos\TesteHsrtech\HsrTech.Helper\obj\Debug
 C:\Users\ricardo.vicentini\hsrtechprodutos\TesteHsrtech\HsrTech.Helper\obj\Debug\HsrTech.Helper.csproj.CoreCompileInputs.cache
 C:\Users\ricardo.vicentini\hsrtechprodutos\TesteHsrtech\HsrTech.Helper\obj\Debug\HsrTech.Helper.dll
 C:\Users\ricardo.vicentini\hsrtechprodutos\TesteHsrtech\HsrTech.Helper\obj\Debug\HsrTech.Helper.pdb
+C:\TESTES\TesteHsrtech\HsrTech.Helper\bin\Debug\HsrTech.Helper.dll
+C:\TESTES\TesteHsrtech\HsrTech.Helper\bin\Debug\HsrTech.Helper.pdb
+C:\TESTES\TesteHsrtech\HsrTech.Helper\obj\Debug\HsrTech.Helper.csprojAssemblyReference.cache
+C:\TESTES\TesteHsrtech\HsrTech.Helper\obj\Debug\HsrTech.Helper.csproj.CoreCompileInputs.cache
+C:\TESTES\TesteHsrtech\HsrTech.Helper\obj\Debug\HsrTech.Helper.dll
+C:\TESTES\TesteHsrtech\HsrTech.Helper\obj\Debug\HsrTech.Helper.pdb

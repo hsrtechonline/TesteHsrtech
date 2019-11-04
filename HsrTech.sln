@@ -14,6 +14,9 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infra", "3 - Infra", "{8398C5F5-6168-4193-A2B7-829A20E98B64}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.1 - Data", "3.1 - Data", "{822C8DED-D299-4D07-BB7A-A3B842A230E4}"
+	ProjectSection(SolutionItems) = preProject
+		COMMAND_SQL.sql = COMMAND_SQL.sql
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3.2 - CrossCuting", "3.2 - CrossCuting", "{9FB82879-3D95-4990-A775-980A1CD6BC0E}"
 EndProject

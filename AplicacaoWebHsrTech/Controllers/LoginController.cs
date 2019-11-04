@@ -34,6 +34,10 @@ namespace AplicacaoWebHsrTech.Controllers
                 {
                     FormsAuthentication.SetAuthCookie(_client.Login, false);
                     return RedirectToAction("Index", "BankAccount");
+                }
+                else
+                {
+                    ViewBag.Mensagem = "Login e Senha Inválidos";
                 }                
             }
             return View();
