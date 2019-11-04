@@ -1,6 +1,8 @@
 ﻿@model HsrTech.Domain.Entities.Metadata.ClientMetadata
 @{
-    ViewBag.Title = "Login";
+                /**/
+
+                ViewBag.Title = "Login";
 }
 
 <h2>Faça o seu login</h2>
@@ -28,5 +30,6 @@
             @Html.ValidationMessageFor(m => m.Password)
         </div>
     </div>
+    <div style="color:red">@ViewBag.Mensagem</div>
     <input type="submit" value="Logar" class="btn btn-default" />
 }
